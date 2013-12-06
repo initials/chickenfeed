@@ -10,7 +10,7 @@ table {border-collapse: collapse; border-spacing: 0;}
 /* reset css ends */
 @font-face{font-family: 'HelveticaBd'; src: url('../../_site/fonts/HelveticaNeueLTStd-Bd.otf');}
 
-body { margin:0; padding:0; overflow-x: hidden; font-family: Arial, Tahoma, Verdana !important; background: #e0e4f1;}
+body { margin:0; padding:0; overflow-x: hidden; font-family: Arial, Tahoma, Verdana !important; background: #F5B453;}
 
 a{color:#fff; text-decoration: none;}
 a:hover{text-decoration: underline;}

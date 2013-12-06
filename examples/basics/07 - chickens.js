@@ -69,8 +69,8 @@ function update()
 		}
 		else
 		{
-			item.scale.x = 1;
-			item.scale.y = 1;
+			item.scale.x -=0.25;
+			item.scale.y -=0.25;
 		}
 		
 		//console.log(c);
