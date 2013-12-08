@@ -14,6 +14,8 @@ function preload() {
 	game.load.spritesheet('chickens', 'chickens_22x22.png', 22, 22);
 	game.load.spritesheet('girl', 'girl_49x91.png', 49, 91);
 	game.load.spritesheet('pellet', 'pellet_4x4.png', 4, 4);
+	game.load.spritesheet('ground', 'ground.png', 592, 40);
+	
 	
 }
 var chickenFeed;
@@ -36,6 +38,7 @@ var chicken3;
 
 var spritePellet;
 var pellets;
+var spriteGround;
 
 
 function create() {
@@ -64,6 +67,8 @@ function create() {
 	spriteBg = game.add.sprite(0, 0, 'bg');
 	spriteBg.scale.x = 4;
 	spriteBg.scale.y = 4;
+	
+	spriteGround = game.add.sprite(0, 91*4 + 40, 'ground');
 
 
 	pellets = game.add.group();
@@ -154,7 +159,7 @@ function update()
 
 	}
 
-	//game.physics.collide(pellets, pellets);
+	game.physics.collide(pellets, spriteGround);
 
 
 
