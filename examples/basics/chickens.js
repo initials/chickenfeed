@@ -271,6 +271,7 @@ function update()
 	
 }
 
+
 function destroyPellet1 (chicken, pellet) {
 	if (chicken1.animations.getAnimation("idle").currentFrame["index"] == 2) {
 
@@ -286,6 +287,10 @@ function destroyPellet1 (chicken, pellet) {
 	
 		pellet.x=-1000;
 		score++;
+		
+		//httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=1&gamename=feedingtime");
+		
+		
 	
 	
 	}
@@ -299,6 +304,8 @@ function destroyPellet2 (chicken, pellet) {
 		emitter.start(true, 900, null, 6);
 		pellet.x=-1000;
 		score++;
+		//httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=1&gamename=feedingtime");
+		
 	}
 }
 function destroyPellet3 (chicken, pellet) {
@@ -311,6 +318,8 @@ function destroyPellet3 (chicken, pellet) {
 		
 		pellet.x=-1000;
 		score++;
+		//httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=1&gamename=feedingtime");
+		
 	}
 }
 
