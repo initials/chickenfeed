@@ -55,8 +55,12 @@ var powerBarBg;
 var direction=false;
 
 function create() {
+
+
+	//game.input.multiInputOverride = 2;
+
 	score = 0;
-    sfxLazer = game.add.audio('sfxLazer', 0.1, false);
+    //sfxLazer = game.add.audio('sfxLazer', 0.1, false);
 	//  This sprite is using a texture atlas for all of its animation data
  //    chickenFeed = game.add.sprite(0, 0, 'chicken');
 
@@ -76,6 +80,8 @@ function create() {
  //    chickenFeed.events.onInputDown.add(listener,this);
 	// chickenFeed.scale.x = 4;
 	// chickenFeed.scale.y = 4;
+
+	//game.input.addPointer();
 
 	spriteBg = game.add.sprite(0, 0, 'bg');
 	spriteBg.scale.x = 4;
@@ -105,6 +111,11 @@ function create() {
 	spriteGirl.events.onInputUp.add(clickUpGirl,this);
     spriteGirl.events.onInputOver.add(overGirl, this);
     spriteGirl.events.onInputOut.add(outGirl, this);
+
+    //spriteGirl.events.onTouchStart.add(clickGirlT,this);
+	//spriteGirl.events.onTouchEnd.add(clickUpGirlT,this);
+
+
 
 	spriteGirl.scale.x = 4;
 	spriteGirl.scale.y = 4;
@@ -245,7 +256,7 @@ function update()
 
 	}
 	
-	if (game.input.mousePointer.isDown)
+	if (game.input.mousePointer.isDown || game.input.touch.isDown || game.input.isDown)
 	{
 		if (direction == true) powerBar.scale.x += 0.02;
 		else if (direction == false) powerBar.scale.x -= 0.02;
@@ -377,6 +388,19 @@ function clickGirl () {
 	powerBar.scale.x = 0;
 }
 
+function clickUpGirlT () {
+	canFeed = true;
+
+	if (!spriteGirl.animations.getAnimation("feed").isPlaying) {
+		timesFed += 1;
+	}
+	spriteGirl.animations.play('feed', 12, false);
+	
+	
+}
+function clickGirlT () {
+	powerBar.scale.x = 0;
+}
 
 function clickChicken1 () {
 	//chicken1.body.velocity.x = game.rnd.integerInRange(-40,40);
