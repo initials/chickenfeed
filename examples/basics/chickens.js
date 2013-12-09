@@ -52,6 +52,9 @@ var currentMultiplier;
 var powerBar;
 var powerBarBg;
 
+var time;
+var timeText;
+
 var direction=false;
 
 function create() {
@@ -227,7 +230,7 @@ function update()
 			multiplierText.y = 50;
 			currentMultiplier*=currentMultiplier;	
 		}
-		if (powerBar.scale.x>=0.94)
+		else if (powerBar.scale.x>=0.94)
 		{
 			currentMultiplier++;			
 			multiplierText.setText("Very close. +5 points.");
@@ -248,8 +251,8 @@ function update()
 				//item.y = 150;
 				item.reset(390,150);
 				
-				item.body.velocity.x =  game.rnd.integerInRange(-250 * powerBar.scale.x, -120 * powerBar.scale.x);
-				item.body.velocity.y =  game.rnd.integerInRange(-300 * powerBar.scale.x, -100 * powerBar.scale.x);
+				item.body.velocity.x =  game.rnd.integerInRange(-280 * powerBar.scale.x, -150 * powerBar.scale.x);
+				item.body.velocity.y =  game.rnd.integerInRange(-330 * powerBar.scale.x, -130 * powerBar.scale.x);
 
 				item.body.acceleration.y = 980;
 				item.body.bounce.setTo(0.2, 0.2);
