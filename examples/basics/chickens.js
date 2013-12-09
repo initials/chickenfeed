@@ -205,10 +205,10 @@ function update()
 
 	if (canFeed && spriteGirl.animations.getAnimation("feed").isPlaying && spriteGirl.animations.getAnimation("feed").currentFrame["index"] == 10) {
 		
-		console.log(currentMultiplier);
+		console.log(powerBar.scale.x);
 
 		// == 1.0
-		if (powerBar.scale.x>=0.9)
+		if (powerBar.scale.x>=0.999)
 		{
 			currentMultiplier++;			
 			multiplierText.setText("Perfect throw! Multiplier " + currentMultiplier + "x");
@@ -309,7 +309,8 @@ function destroyPellet1 (chicken, pellet) {
 		emitter.start(true, 900, null, 6);
 	
 		pellet.x=-1000;
-		score++;
+		score+=currentMultiplier;
+
 		
 		//httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=1&gamename=feedingtime");
 		
@@ -326,7 +327,7 @@ function destroyPellet2 (chicken, pellet) {
 		emitter.y = pellet.y;
 		emitter.start(true, 900, null, 6);
 		pellet.x=-1000;
-		score++;
+		score+=currentMultiplier;
 		//httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=1&gamename=feedingtime");
 		
 	}
@@ -340,7 +341,7 @@ function destroyPellet3 (chicken, pellet) {
 		emitter.start(true, 900, null, 6);
 		
 		pellet.x=-1000;
-		score++;
+		score+=currentMultiplier;
 		//httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=1&gamename=feedingtime");
 		
 	}
