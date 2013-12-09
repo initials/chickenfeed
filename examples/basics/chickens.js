@@ -81,7 +81,7 @@ function create() {
 	// chickenFeed.scale.x = 4;
 	// chickenFeed.scale.y = 4;
 
-	//game.input.addPointer();
+	game.input.addPointer();
 
 	spriteBg = game.add.sprite(0, 0, 'bg');
 	spriteBg.scale.x = 4;
@@ -256,7 +256,7 @@ function update()
 
 	}
 	
-	if (game.input.mousePointer.isDown || game.input.touch.isDown || game.input.isDown)
+	if (game.input.mousePointer.isDown || game.input.touch.isDown || game.input.isDown || game.input.pointer1.isDown)
 	{
 		if (direction == true) powerBar.scale.x += 0.02;
 		else if (direction == false) powerBar.scale.x -= 0.02;
