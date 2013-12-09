@@ -221,10 +221,21 @@ function update()
 		// == 1.0
 		if (powerBar.scale.x>=0.999)
 		{
-			currentMultiplier++;			
+			currentMultiplier++;	
+			currentMultiplier*=currentMultiplier;		
 			multiplierText.setText("Perfect throw! Multiplier " + currentMultiplier + "x");
 			multiplierText.y = 50;
+			currentMultiplier*=currentMultiplier;	
 		}
+		if (powerBar.scale.x>=0.94)
+		{
+			currentMultiplier++;			
+			multiplierText.setText("Very close. +5 points.");
+			multiplierText.y = 50;
+			score+=5;
+			currentMultiplier=1;
+		}
+
 		else
 		{
 			currentMultiplier=1;
