@@ -177,7 +177,7 @@ function create() {
 	var text = "+0";
     var style = { font: "22px Arial", fill: "#ffffff", align: "center" };
 
-    scoreText = game.add.text(10,10, text, style);
+    scoreText = game.add.text(10,30, text, style);
 
 
 	var style2 = { font: "16px Arial", fill: "#ffffff", align: "center" };
@@ -194,10 +194,10 @@ function create() {
 		//notes.add(note);
     //}
 	
-	powerBarBg = game.add.sprite(70, 20, 'powerBarBg');
+	powerBarBg = game.add.sprite(10, 10, 'powerBarBg');
 	
 
-	powerBar = game.add.sprite(70, 20, 'powerBar');
+	powerBar = game.add.sprite(10, 10, 'powerBar');
 	powerBar.scale.x = 0;
 
 	
