@@ -6,11 +6,9 @@ function preload() {
 	//game.load.spritesheet('chicken', 'chickens_148x91.png', 148, 91);
 	//game.load.spritesheet('note', 'squareNote.png', 4, 4);
 	//game.load.audio('sfxLazer', [ 'shot.wav']);
-
-
-
-
+	
 	game.load.spritesheet('bg', 'bg_148x91.png', 148, 91);
+	game.load.spritesheet('bgGrass', 'bgGrass_148x91.png', 148, 91);
 	game.load.spritesheet('chickens', 'chickens_22x22.png', 22, 22);
 	game.load.spritesheet('girl', 'girl_49x91.png', 49, 91);
 	game.load.spritesheet('pellet', 'pellet_4x4.png', 4, 4);
@@ -18,6 +16,7 @@ function preload() {
 	game.load.spritesheet('ground', 'ground.png', 592, 40);
 	game.load.spritesheet('powerBar', 'powerBar.png', 300, 10);
 	game.load.spritesheet('powerBarBg', 'powerBarBg.png', 300, 10);
+	game.load.spritesheet('powerBarBig', 'powerBarBig.png', 592, 20);
 	game.load.spritesheet('button', 'button.png', 80, 10);
 	
 }
@@ -90,6 +89,15 @@ function create() {
 	spriteBg = game.add.sprite(0, 0, 'bg');
 	spriteBg.scale.x = 4;
 	spriteBg.scale.y = 4;
+	
+	powerBar = game.add.sprite(0, 0, 'powerBarBig');
+	powerBar.scale.x = 0;
+	powerBar.scale.y = 500;
+	
+	spriteBgp = game.add.sprite(0, 0, 'bgGrass');
+	spriteBgp.scale.x = 4;
+	spriteBgp.scale.y = 4;	
+	
 	
 	spriteGround = game.add.sprite(0,  91*4 - 40, 'ground');
 	spriteGround.body.immovable = true;
@@ -177,8 +185,7 @@ function create() {
 	
 	var text = "+0";
     var style = { font: "22px Arial", fill: "#ffffff", align: "center" };
-
-    scoreText = game.add.text(10,30, text, style);
+    scoreText = game.add.text(10,10, text, style);
 
 
 	var style2 = { font: "16px Arial", fill: "#ffffff", align: "center" };
@@ -186,8 +193,6 @@ function create() {
     //multiplierText.velocity.y = -20;
     currentMultiplier = 1;
 	
-
-
 	//notes = game.add.group();
     //for (var i = 0; i < 17; i++)
     //{
@@ -195,16 +200,11 @@ function create() {
 		//notes.add(note);
     //}
 	
-	powerBarBg = game.add.sprite(10, 10, 'powerBarBg');
+	//powerBarBg = game.add.sprite(10, 10, 'powerBarBg');
 	
-
-	powerBar = game.add.sprite(10, 10, 'powerBar');
-	powerBar.scale.x = 0;
-
 	//button = game.add.button(10, 350, 'button', submitHighScore, this, 2, 1, 0);
-
 	
-
+	
 }
 
 function render() {
@@ -225,17 +225,19 @@ function update()
 		//console.log(powerBar.scale.x);
 
 		// == 1.0
-		if (powerBar.scale.x>=0.999)
+		if (powerBar.scale.x>=0.98)
 		{
-			currentMultiplier++;	
-			currentMultiplier*=currentMultiplier;		
+			powerBar.scale.x = 1;
+
+			//currentMultiplier++;	
+			currentMultiplier+=currentMultiplier;		
 			multiplierText.setText("Perfect throw! Multiplier " + currentMultiplier + "x");
 			multiplierText.y = 50;
 			//currentMultiplier*=currentMultiplier;	
 		}
 		else if (powerBar.scale.x>=0.94)
 		{
-			currentMultiplier++;			
+						
 			multiplierText.setText("Very close. +5 points.");
 			multiplierText.y = 50;
 			score+=5;
@@ -266,16 +268,16 @@ function update()
 		
 		canFeed = false;
 
-		
-		
-		
-
-
 	}
 	
 	if (game.input.mousePointer.isDown || game.input.touch.isDown || game.input.isDown || game.input.pointer1.isDown)
 	{
-		if (direction == true) powerBar.scale.x += 0.02;
+		if (direction == true) 
+		{
+			if(powerBar.scale.x<0.92) powerBar.scale.x += 0.02;
+			else powerBar.scale.x += 0.02;
+			
+		}
 		else if (direction == false) powerBar.scale.x -= 0.02;
 		
 		if (powerBar.scale.x >= 1) direction = false;
@@ -388,7 +390,7 @@ function overGirl () {
 	spriteGirl.play("blink");
 	
 	powerBar.visible = true;
-	powerBarBg.visible = true;
+	//powerBarBg.visible = true;
 	powerBar.scale.x = 0;
 	
 }
@@ -396,7 +398,7 @@ function outGirl () {
 	spriteGirl.alpha = 0.7;
 	
 	powerBar.visible = false;
-	powerBarBg.visible = false;
+	//powerBarBg.visible = false;
 }
 function clickUpGirl () {
 	canFeed = true;
@@ -406,7 +408,10 @@ function clickUpGirl () {
 	}
 	spriteGirl.animations.play('feed', 12, false);
 	
-	
+	if (powerBar.scale.x>=0.98)
+	{
+		powerBar.scale.x = 1;
+	}
 }
 function clickGirl () {
 	powerBar.scale.x = 0;
