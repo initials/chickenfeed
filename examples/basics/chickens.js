@@ -205,7 +205,7 @@ function update()
 
 	if (canFeed && spriteGirl.animations.getAnimation("feed").isPlaying && spriteGirl.animations.getAnimation("feed").currentFrame["index"] == 10) {
 		
-		console.log(powerBar.scale.x);
+		//console.log(powerBar.scale.x);
 
 		// == 1.0
 		if (powerBar.scale.x>=0.999)
