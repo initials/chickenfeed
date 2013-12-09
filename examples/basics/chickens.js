@@ -137,7 +137,7 @@ function create() {
 	chicken1.body.drag.setTo(100,100);
 	chicken1.inputEnabled=true;
 	chicken1.events.onInputDown.add(clickChicken1,this);
-	
+	chicken1.body.acceleration.y = 980;
 	
 
     chicken2 = game.add.sprite(40*4, 60*4, 'chickens');
@@ -150,7 +150,7 @@ function create() {
 	chicken2.body.drag.setTo(100,100);
 	chicken2.inputEnabled=true;
 	chicken2.events.onInputDown.add(clickChicken2,this);
-	
+	chicken2.body.acceleration.y = 980;
 	
     chicken3 = game.add.sprite(82*4, 60*4, 'chickens');
     chicken3.animations.add('idle', [10,10,10,10,10,11,12,13,14], 16, false );
@@ -162,7 +162,7 @@ function create() {
 	chicken3.body.drag.setTo(100,100);
 	chicken3.inputEnabled=true;
 	chicken3.events.onInputDown.add(clickChicken3,this);	
-
+	chicken3.body.acceleration.y = 980;
 	
 	emitter = game.add.emitter(0, 0, 200);
 
@@ -228,7 +228,7 @@ function update()
 			currentMultiplier*=currentMultiplier;		
 			multiplierText.setText("Perfect throw! Multiplier " + currentMultiplier + "x");
 			multiplierText.y = 50;
-			currentMultiplier*=currentMultiplier;	
+			//currentMultiplier*=currentMultiplier;	
 		}
 		else if (powerBar.scale.x>=0.94)
 		{
@@ -283,7 +283,9 @@ function update()
 
 	game.physics.collide(pellets, spriteGround);
 	game.physics.collide(emitter, spriteGround);
-	
+	game.physics.collide(chicken1, spriteGround);
+	game.physics.collide(chicken2, spriteGround);
+	game.physics.collide(chicken3, spriteGround);
 	
 	game.physics.overlap(pellets, chicken1, destroyPellet1, null, this);
 	game.physics.overlap(pellets, chicken2, destroyPellet2, null, this);
@@ -417,16 +419,19 @@ function clickGirlT () {
 }
 
 function clickChicken1 () {
-	//chicken1.body.velocity.x = game.rnd.integerInRange(-40,40);
+	chicken1.body.velocity.x = game.rnd.integerInRange(-80,80);
+	chicken1.body.velocity.y = -300;
+
 
 }
 function clickChicken2 () {
-	//chicken2.body.velocity.x = game.rnd.integerInRange(-40,40);
+	chicken2.body.velocity.x = game.rnd.integerInRange(-80,80);
+	chicken2.body.velocity.y = -300;
 
 }
 function clickChicken3 () {
-	//chicken3.body.velocity.x = game.rnd.integerInRange(-40,40);
-
+	chicken3.body.velocity.x = game.rnd.integerInRange(-80,80);
+	chicken3.body.velocity.y = -300;
 }
 
 
