@@ -46,6 +46,8 @@ var canFeed = true;
 var score = 0;
 var scoreString = '';
 var scoreText;
+var multiplierText;
+var currentMultiplier;
 
 var powerBar;
 var powerBarBg;
@@ -162,7 +164,14 @@ function create() {
     var style = { font: "22px Arial", fill: "#ffffff", align: "center" };
 
     scoreText = game.add.text(10,10, text, style);
+
+
+	var style2 = { font: "16px Arial", fill: "#ffffff", align: "center" };
+    multiplierText = game.add.text(10,-510, "Multipler x1", style2);
+    //multiplierText.velocity.y = -20;
+    currentMultiplier = 1;
 	
+
 
 	//notes = game.add.group();
     //for (var i = 0; i < 17; i++)
@@ -192,10 +201,24 @@ function render() {
 
 function update() 
 {
-	
+	multiplierText.y -= 1;
+
 	if (canFeed && spriteGirl.animations.getAnimation("feed").isPlaying && spriteGirl.animations.getAnimation("feed").currentFrame["index"] == 10) {
 		
-		//console.log("Feeding time");
+		console.log(currentMultiplier);
+
+		// == 1.0
+		if (powerBar.scale.x>=0.9)
+		{
+			currentMultiplier++;			
+			multiplierText.setText("Perfect throw! Multiplier " + currentMultiplier + "x");
+			multiplierText.y = 50;
+		}
+		else
+		{
+			currentMultiplier=1;
+		}
+
 		
 		pellets.forEach(function(item) {
 			if (game.rnd.integerInRange(0, 100) < 15) {
