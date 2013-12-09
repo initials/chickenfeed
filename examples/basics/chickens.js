@@ -3,8 +3,8 @@ var game = new Phaser.Game(148*4, 91*4, Phaser.CANVAS, 'phaser-example', { prelo
 
 function preload() {
     //game.load.atlasJSONHash('bot', 'assets/sprites/running_bot.png', 'assets/sprites/running_bot.json');
-	game.load.spritesheet('chicken', 'chickens_148x91.png', 148, 91);
-	game.load.spritesheet('note', 'squareNote.png', 4, 4);
+	//game.load.spritesheet('chicken', 'chickens_148x91.png', 148, 91);
+	//game.load.spritesheet('note', 'squareNote.png', 4, 4);
 	//game.load.audio('sfxLazer', [ 'shot.wav']);
 
 
@@ -18,6 +18,7 @@ function preload() {
 	game.load.spritesheet('ground', 'ground.png', 592, 40);
 	game.load.spritesheet('powerBar', 'powerBar.png', 300, 10);
 	game.load.spritesheet('powerBarBg', 'powerBarBg.png', 300, 10);
+	game.load.spritesheet('button', 'button.png', 80, 10);
 	
 }
 var chickenFeed;
@@ -137,7 +138,7 @@ function create() {
 	chicken1.body.drag.setTo(100,100);
 	chicken1.inputEnabled=true;
 	chicken1.events.onInputDown.add(clickChicken1,this);
-	chicken1.body.acceleration.y = 980;
+	//chicken1.body.gravity.y = 980;
 	
 
     chicken2 = game.add.sprite(40*4, 60*4, 'chickens');
@@ -150,7 +151,7 @@ function create() {
 	chicken2.body.drag.setTo(100,100);
 	chicken2.inputEnabled=true;
 	chicken2.events.onInputDown.add(clickChicken2,this);
-	chicken2.body.acceleration.y = 980;
+	//chicken2.body.gravity.y = 980;
 	
     chicken3 = game.add.sprite(82*4, 60*4, 'chickens');
     chicken3.animations.add('idle', [10,10,10,10,10,11,12,13,14], 16, false );
@@ -162,7 +163,7 @@ function create() {
 	chicken3.body.drag.setTo(100,100);
 	chicken3.inputEnabled=true;
 	chicken3.events.onInputDown.add(clickChicken3,this);	
-	chicken3.body.acceleration.y = 980;
+	//chicken3.body.gravity.y = 980;
 	
 	emitter = game.add.emitter(0, 0, 200);
 
@@ -199,6 +200,8 @@ function create() {
 
 	powerBar = game.add.sprite(10, 10, 'powerBar');
 	powerBar.scale.x = 0;
+
+	//button = game.add.button(10, 350, 'button', submitHighScore, this, 2, 1, 0);
 
 	
 
@@ -280,6 +283,11 @@ function update()
 		
 		
 	}
+
+	//if (chicken1.y > 500) chicken1.reset(chicken1.x, 51*4);
+	//if (chicken2.y > 500) chicken2.reset(chicken2.x, 51*4);
+	//if (chicken3.y > 500) chicken3.reset(chicken3.x, 51*4);
+
 
 	game.physics.collide(pellets, spriteGround);
 	game.physics.collide(emitter, spriteGround);
@@ -419,26 +427,48 @@ function clickGirlT () {
 }
 
 function clickChicken1 () {
-	chicken1.body.velocity.x = game.rnd.integerInRange(-80,80);
-	chicken1.body.velocity.y = -300;
+	// chicken1.body.velocity.x = game.rnd.integerInRange(-80,80);
+	// chicken1.body.velocity.y = -300;
+	// if (chicken1.x < 30)
+	// {
+	// 	chicken1.body.velocity.x = game.rnd.integerInRange(50,180);
 
+	// }
 
 }
 function clickChicken2 () {
-	chicken2.body.velocity.x = game.rnd.integerInRange(-80,80);
-	chicken2.body.velocity.y = -300;
+	// chicken2.body.velocity.x = game.rnd.integerInRange(-80,80);
+	// chicken2.body.velocity.y = -300;
+	// if (chicken2.x < 30)
+	// {
+	// 	chicken2.body.velocity.x = game.rnd.integerInRange(50,180);
+
+	// }
+
 
 }
 function clickChicken3 () {
-	chicken3.body.velocity.x = game.rnd.integerInRange(-80,80);
-	chicken3.body.velocity.y = -300;
+	// chicken3.body.velocity.x = game.rnd.integerInRange(-80,80);
+	// chicken3.body.velocity.y = -300;
+	// if (chicken3.x < 30)
+	// {
+	// 	chicken3.body.velocity.x = game.rnd.integerInRange(50,180);
+
+	// }
+
 }
 
 
 
+function submitHighScore () {
 
+
+}
 
 function listener () {
+
+	httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=" + score + "&gamename=feedingtime");
+
 
 	// if (!chickenFeed.animations.getAnimation("feed").isPlaying) {
 	// 	timesFed += 1;
@@ -453,3 +483,15 @@ function listener () {
 	// else s.setText("");	
 	
 }
+
+	
+function httpGet(theUrl)
+{
+    var xmlHttp = null;
+
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
