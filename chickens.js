@@ -333,9 +333,14 @@ function update()
 	
 	if (scoreDisplayed<score) {
 		if (scoreTimeOffset > 3) {
-			scoreDisplayed++;
+			var diff =  score - scoreDisplayed ;
+			if (diff > 11) scoreDisplayed += 10;
+			else if (diff > 6) scoreDisplayed += 5;
+			else scoreDisplayed++;
+			
 			scoreTimeOffset = 0;
 		}
+		
 	}
 	scoreText.setText("+"+scoreDisplayed);
 	
