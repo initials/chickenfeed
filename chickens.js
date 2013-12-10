@@ -44,6 +44,8 @@ var spriteGround;
 var c = 0;
 var canFeed = true;
 var score = 0;
+var scoreDisplayed = 0;
+var scoreTimeOffset = 0;
 var scoreString = '';
 var scoreText;
 var multiplierText;
@@ -326,8 +328,16 @@ function update()
 	// });
 	
 	// if (time%16==0) sfxLazer.play('', 0, 0.1);
+
+	scoreTimeOffset ++;
 	
-	scoreText.setText("+"+score);
+	if (scoreDisplayed<score) {
+		if (scoreTimeOffset > 3) {
+			scoreDisplayed++;
+			scoreTimeOffset = 0;
+		}
+	}
+	scoreText.setText("+"+scoreDisplayed);
 	
 }
 
