@@ -2,11 +2,7 @@
 var game = new Phaser.Game(148*4, 91*4, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render  }, false, false);
 
 function preload() {
-    //game.load.atlasJSONHash('bot', 'assets/sprites/running_bot.png', 'assets/sprites/running_bot.json');
-	//game.load.spritesheet('chicken', 'chickens_148x91.png', 148, 91);
-	//game.load.spritesheet('note', 'squareNote.png', 4, 4);
-	//game.load.audio('sfxLazer', [ 'shot.wav']);
-	
+
 	game.load.spritesheet('bg', 'bg_148x91.png', 148, 91);
 	game.load.spritesheet('bgGrass', 'bgGrass_148x91.png', 148, 91);
 	game.load.spritesheet('chickens', 'chickens_22x22.png', 22, 22);
@@ -20,6 +16,7 @@ function preload() {
 	game.load.spritesheet('button', 'button.png', 80, 10);
 	
 }
+
 var chickenFeed;
 var note;
 var t = 0;
@@ -60,52 +57,34 @@ var timeText;
 var direction=false;
 
 function create() {
-
-
-	//game.input.multiInputOverride = 2;
-
 	score = 0;
-    //sfxLazer = game.add.audio('sfxLazer', 0.1, false);
-	//  This sprite is using a texture atlas for all of its animation data
- //    chickenFeed = game.add.sprite(0, 0, 'chicken');
 
- //    //  Here we add a new animation called 'run'
- //    //  We haven't specified any frames because it's using every frame in the texture atlas
- //    chickenFeed.animations.add('feed', [8,9,10,11,12,13,14,15,16,17,18,8], 12, false );
-	// chickenFeed.animations.add('idle', [8], 10, false );
-	// //alien.animations.add('fly', [ 0, 1, 2, 3 ], 20, true);
-
- //    //  And this starts the animation playing by using its key ("run")
- //    //  15 is the frame rate (15fps)
- //    //  true means it will loop when it finishes
- //    chickenFeed.animations.play('idle', 20, true);
-	
-	// chickenFeed.inputEnabled=true;
-
- //    chickenFeed.events.onInputDown.add(listener,this);
-	// chickenFeed.scale.x = 4;
-	// chickenFeed.scale.y = 4;
-
+	//add pointer for mobile touching.
 	game.input.addPointer();
 
+	//background
 	spriteBg = game.add.sprite(0, 0, 'bg');
 	spriteBg.scale.x = 4;
 	spriteBg.scale.y = 4;
 	
+	// the power bar is the bg that slides
 	powerBar = game.add.sprite(0, 0, 'powerBarBig');
 	powerBar.scale.x = 0;
 	powerBar.scale.y = 500;
 	
+	// the bg grass is a stencil to cut out the power bar
 	spriteBgp = game.add.sprite(0, 0, 'bgGrass');
 	spriteBgp.scale.x = 4;
 	spriteBgp.scale.y = 4;	
 	
 	
+	//collide object for pellets.
 	spriteGround = game.add.sprite(0,  91*4 - 40, 'ground');
 	spriteGround.body.immovable = true;
 	spriteGround.body.bounce.setTo(0.1, 0.1);
 
 
+	// add 100 pellets for feeding.
 	pellets = game.add.group();
     for (var i = 0; i < 100; i++)
     {
@@ -113,11 +92,10 @@ function create() {
 		//notes.add(note);
     }
 
-
+    // add the girl in the hoodie.
     spriteGirl = game.add.sprite(92*4, 0, 'girl');
     spriteGirl.animations.add('feed', [8,9,10,11,12,13,14,15,16,17,18,8], 12, false );
 	spriteGirl.animations.add('blink', [18,8], 12, false );
-
 	spriteGirl.animations.add('idle', [8], 10, false );
     spriteGirl.animations.play('idle', 20, true);
 	spriteGirl.inputEnabled=true;
@@ -125,90 +103,62 @@ function create() {
 	spriteGirl.events.onInputUp.add(clickUpGirl,this);
     spriteGirl.events.onInputOver.add(overGirl, this);
     spriteGirl.events.onInputOut.add(outGirl, this);
-
-    //spriteGirl.events.onTouchStart.add(clickGirlT,this);
-	//spriteGirl.events.onTouchEnd.add(clickUpGirlT,this);
-
-
-
 	spriteGirl.scale.x = 4;
 	spriteGirl.scale.y = 4;
 	spriteGirl.alpha = 0.9;
 	spriteGirl.body.setSize(30, 70, 65, 50);
 
+	// add chickens 1, 2, 3
     chicken1 = game.add.sprite(13*4, 60*4, 'chickens');
-	//chicken1.inputEnabled=true;
-    //chickenFeed.events.onInputDown.add(listener,this);
     chicken1.animations.add('idle', [0,1,1,1,1,1,1,1,1,2,3], 12, false );
 	chicken1.animations.play('idle', 12, true);
 	chicken1.scale.x = 4;
 	chicken1.scale.y = 4;
 	chicken1.body.setSize(4, 4, 55, 70);
-	
 	chicken1.body.drag.setTo(100,100);
 	chicken1.inputEnabled=true;
 	chicken1.events.onInputDown.add(clickChicken1,this);
-	//chicken1.body.gravity.y = 980;
-	
 
     chicken2 = game.add.sprite(40*4, 60*4, 'chickens');
     chicken2.animations.add('idle', [5,6,7,7,7,7,7,7,7,7,7,7,1,2,3,7,7,7,7,7,7,7,7,7,7,7,7,7,7,8,9], 14, false );
 	chicken2.animations.play('idle', 14, true);
-
 	chicken2.scale.x = 4;
 	chicken2.scale.y = 4;
 	chicken2.body.setSize(4, 4, 55, 70);
 	chicken2.body.drag.setTo(100,100);
 	chicken2.inputEnabled=true;
 	chicken2.events.onInputDown.add(clickChicken2,this);
-	//chicken2.body.gravity.y = 980;
 	
     chicken3 = game.add.sprite(82*4, 60*4, 'chickens');
     chicken3.animations.add('idle', [10,10,10,10,10,11,12,13,14], 16, false );
 	chicken3.animations.play('idle', 16, true);
-
 	chicken3.scale.x = -4;
 	chicken3.scale.y = 4;
 	chicken3.body.setSize(4, 4, -70, 70);
 	chicken3.body.drag.setTo(100,100);
 	chicken3.inputEnabled=true;
 	chicken3.events.onInputDown.add(clickChicken3,this);	
-	//chicken3.body.gravity.y = 980;
-	
-	emitter = game.add.emitter(0, 0, 200);
 
+	//add the emitter for the pellets	
+	emitter = game.add.emitter(0, 0, 200);
     emitter.makeParticles('pelletBurst');
     emitter.gravity = 10;
     emitter.minParticleSpeed.setTo(-70, -150);
     emitter.maxParticleSpeed.setTo(70, -100);
 
-
-	//scoreString = 'Score : ';
-	
+	// add the score text and multipler text
 	var text = "+0";
     var style = { font: "22px Arial", fill: "#ffffff", align: "center" };
     scoreText = game.add.text(10,10, text, style);
-
 
 	var style2 = { font: "16px Arial", fill: "#ffffff", align: "center" };
     multiplierText = game.add.text(10,-510, "Multipler x1", style2);
     //multiplierText.velocity.y = -20;
     currentMultiplier = 1;
 	
-	//notes = game.add.group();
-    //for (var i = 0; i < 17; i++)
-    //{
-       // notes.create((10 + (i*6)+5), 5, 'note');
-		//notes.add(note);
-    //}
-	
-	//powerBarBg = game.add.sprite(10, 10, 'powerBarBg');
-	
-	//button = game.add.button(10, 350, 'button', submitHighScore, this, 2, 1, 0);
-	
-	
 }
 
+// render used for debug only.
 function render() {
 
     //game.debug.renderRectangle(spriteGirl.body);
@@ -218,24 +168,21 @@ function render() {
 
 }
 
+
 function update() 
 {
+	// make text move up screen
 	multiplierText.y -= 1;
 
+	//Check that you can run a feed.
 	if (canFeed && spriteGirl.animations.getAnimation("feed").isPlaying && spriteGirl.animations.getAnimation("feed").currentFrame["index"] == 10) {
 		
-		//console.log(powerBar.scale.x);
-
-		// == 1.0
 		if (powerBar.scale.x>=0.98)
 		{
 			powerBar.scale.x = 1;
-
-			//currentMultiplier++;	
 			currentMultiplier+=currentMultiplier;		
 			multiplierText.setText("Perfect throw! Multiplier " + currentMultiplier + "x");
 			multiplierText.y = 50;
-			//currentMultiplier*=currentMultiplier;	
 		}
 		else if (powerBar.scale.x>=0.94)
 		{
@@ -251,7 +198,7 @@ function update()
 			currentMultiplier=1;
 		}
 
-		
+		// launch a set of pellets
 		pellets.forEach(function(item) {
 			if (game.rnd.integerInRange(0, 100) < 15) {
 				//item.x = 390;
@@ -308,26 +255,6 @@ function update()
 	//console.log(spriteGirl.animations.getAnimation("feed").currentFrame);
 
 
-	// time++;
-	// var c = 0;
-	// //console.log(c);
-	// notes.forEach(function(item) {
-	// 	if (time%16==c)
-	// 	{
-	// 		item.scale.x = 3;
-	// 		item.scale.y = 3;
-	// 	}
-	// 	else
-	// 	{
-	// 		item.scale.x -=0.25;
-	// 		item.scale.y -=0.25;
-	// 	}
-		
-	// 	//console.log(c);
-	// 	c++;
-	// });
-	
-	// if (time%16==0) sfxLazer.play('', 0, 0.1);
 
 	scoreTimeOffset ++;
 	
@@ -349,53 +276,30 @@ function update()
 
 function destroyPellet1 (chicken, pellet) {
 	if (chicken1.animations.getAnimation("idle").currentFrame["index"] == 2) {
-
-		
 		emitter.x = pellet.x;
 		emitter.y = pellet.y;
-
-		//  The first parameter sets the effect to "explode" which means all particles are emitted at once
-		//  The second gives each particle a 2000ms lifespan
-		//  The third is ignored when using burst/explode mode
-		//  The final parameter (10) is how many particles will be emitted in this single burst
 		emitter.start(true, 900, null, 6);
-	
 		pellet.x=-1000;
 		score+=currentMultiplier;
-
-		
-		//httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=1&gamename=feedingtime");
-		
-		
-	
-	
 	}
 }
 function destroyPellet2 (chicken, pellet) {
 	if (chicken2.animations.getAnimation("idle").currentFrame["index"] == 2) {
-
-		
 		emitter.x = pellet.x;
 		emitter.y = pellet.y;
 		emitter.start(true, 900, null, 6);
 		pellet.x=-1000;
 		score+=currentMultiplier;
-		//httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=1&gamename=feedingtime");
 		
 	}
 }
 function destroyPellet3 (chicken, pellet) {
 	if (chicken3.animations.getAnimation("idle").currentFrame["index"] == 13||chicken3.animations.getAnimation("idle").currentFrame["index"] == 12) {
-
-		
 		emitter.x = pellet.x;
 		emitter.y = pellet.y;
 		emitter.start(true, 900, null, 6);
-		
 		pellet.x=-1000;
 		score+=currentMultiplier;
-		//httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=1&gamename=feedingtime");
-		
 	}
 }
 
@@ -403,18 +307,15 @@ function destroyPellet3 (chicken, pellet) {
 function overGirl () {
 	spriteGirl.alpha = 1.0;
 	spriteGirl.play("blink");
-	
 	powerBar.visible = true;
-	//powerBarBg.visible = true;
 	powerBar.scale.x = 0;
-	
 }
+
 function outGirl () {
 	spriteGirl.alpha = 0.7;
-	
 	powerBar.visible = false;
-	//powerBarBg.visible = false;
 }
+
 function clickUpGirl () {
 	canFeed = true;
 
@@ -452,7 +353,6 @@ function clickChicken1 () {
 	// if (chicken1.x < 30)
 	// {
 	// 	chicken1.body.velocity.x = game.rnd.integerInRange(50,180);
-
 	// }
 
 }
@@ -462,10 +362,7 @@ function clickChicken2 () {
 	// if (chicken2.x < 30)
 	// {
 	// 	chicken2.body.velocity.x = game.rnd.integerInRange(50,180);
-
 	// }
-
-
 }
 function clickChicken3 () {
 	// chicken3.body.velocity.x = game.rnd.integerInRange(-80,80);
@@ -473,9 +370,7 @@ function clickChicken3 () {
 	// if (chicken3.x < 30)
 	// {
 	// 	chicken3.body.velocity.x = game.rnd.integerInRange(50,180);
-
 	// }
-
 }
 
 
@@ -486,32 +381,24 @@ function submitHighScore () {
 }
 
 function listener () {
-
-	httpGet("http://initialsgames.com/highscores/commands.php?f=addData&score=" + score + "&gamename=feedingtime");
-
-
 	// if (!chickenFeed.animations.getAnimation("feed").isPlaying) {
 	// 	timesFed += 1;
 	// }
 	// chickenFeed.animations.play('feed', 12, false);
-	
 	// if (timesFed==2) s.setText("Achievement Earned: Fed chickens twice");
 	// else if (timesFed==5) s.setText("Achievement Earned: Farmer In Training - Fed chickens five times");
 	// else if (timesFed==10) s.setText("Achievement Earned: Semi-pro farmer - Fed chickens ten times");
 	// else if (timesFed==50) s.setText("Achievement Earned: Pro Farmer - Fed chickens fifty times");	
 	// else if (timesFed==100) s.setText("Achievement Earned: Serious Business - Fed chickens one hundred times");
 	// else s.setText("");	
-	
 }
 
 	
 function httpGet(theUrl)
 {
     var xmlHttp = null;
-
     xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false );
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
-
