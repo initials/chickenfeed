@@ -288,6 +288,9 @@ function update()
 		}
 		tweet = document.getElementById('tweet');
 		tweet.href = TWEET_PREAMBLE + score + TWEET_PROLOGUE;
+
+		// To change the text in the tweet link:
+		//document.getElementById('tweet').textContent = "Lock";
 	}
 
 	scoreText.setText("+"+scoreDisplayed);
