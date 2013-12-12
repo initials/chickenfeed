@@ -17,6 +17,8 @@ function preload() {
 	
 }
 
+
+
 var chickenFeed;
 var note;
 var t = 0;
@@ -56,7 +58,20 @@ var timeText;
 
 var direction=false;
 
+var tweet;
+var TWEET_PREAMBLE = 'https://twitter.com/intent/tweet?text=It\'s feeding time and I scored ';
+var TWEET_PROLOGUE = ' feeding the chickens! http://www.initialsgames.com/feedingtime/ &hashtags=feedingtime ';
+
+
 function create() {
+
+	tweet = document.getElementById('tweet');
+	//alert(tweet.href);
+	tweet.href = TWEET_PREAMBLE + score + TWEET_PROLOGUE;
+
+	//this.tweetElement.href = this.TWEET_PREAMBLE + this.score + this.TWEET_PROLOGUE;
+
+
 	score = 0;
 
 	//add pointer for mobile touching.
@@ -155,7 +170,8 @@ function create() {
     multiplierText = game.add.text(10,-510, "Multipler x1", style2);
     //multiplierText.velocity.y = -20;
     currentMultiplier = 1;
-	
+
+
 }
 
 // render used for debug only.
@@ -217,6 +233,9 @@ function update()
 		
 		canFeed = false;
 
+
+
+
 	}
 	
 	if (game.input.mousePointer.isDown || game.input.touch.isDown || game.input.isDown || game.input.pointer1.isDown)
@@ -267,10 +286,11 @@ function update()
 			
 			scoreTimeOffset = 0;
 		}
-		
+		tweet = document.getElementById('tweet');
+		tweet.href = TWEET_PREAMBLE + score + TWEET_PROLOGUE;
 	}
+
 	scoreText.setText("+"+scoreDisplayed);
-	
 }
 
 
