@@ -290,7 +290,7 @@ function update()
 		tweet.href = TWEET_PREAMBLE + score + TWEET_PROLOGUE;
 
 		// To change the text in the tweet link:
-		//document.getElementById('tweet').textContent = "Lock";
+		//document.getElementById('tweet').textContent = "Your new text here, such as Tweet Your Score";
 	}
 
 	scoreText.setText("+"+scoreDisplayed);
