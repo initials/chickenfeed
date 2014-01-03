@@ -41,7 +41,7 @@ var spritePellet;
 var pellets;
 var spriteGround;
 var c = 0;
-var canFeed = true;
+var canFeed = false;
 var score = 0;
 var scoreDisplayed = 0;
 var scoreTimeOffset = 0;
@@ -86,6 +86,7 @@ function create() {
 	powerBar = game.add.sprite(0, 0, 'powerBarBig');
 	powerBar.scale.x = 0;
 	powerBar.scale.y = 500;
+	powerBar.visible = false;
 	
 	// the bg grass is a stencil to cut out the power bar
 	spriteBgp = game.add.sprite(0, 0, 'bgGrass');
@@ -120,7 +121,7 @@ function create() {
     spriteGirl.events.onInputOut.add(outGirl, this);
 	spriteGirl.scale.x = 4;
 	spriteGirl.scale.y = 4;
-	spriteGirl.alpha = 0.9;
+	spriteGirl.alpha = 0.7;
 	spriteGirl.body.setSize(30, 70, 65, 50);
 
 	// add chickens 1, 2, 3
