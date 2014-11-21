@@ -32,7 +32,7 @@ namespace FeedingTime
 
             pellets = new FlxGroup();
 
-            for (int i = 0; i < 45; i++)
+            for (int i = 0; i < 100; i++)
             {
                 Pellet p = new Pellet(-10, -10);
                 p.dead = true;

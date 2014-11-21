@@ -17,33 +17,54 @@ namespace FeedingTime
         private FlxGroup chickens;
         private Chicken chicken;
 
+        private FlxText score;
+        private FlxEmitter exploder;
+
         override public void create()
         {
-            FlxG.backColor = FlxColor.ToColor("#E56C60");
+            //FlxG.backColor = FlxColor.ToColor("#E56C60");
+
             base.create();
 
             bg = new BG(0, 0);
             add(bg);
 
-            girl = new Girl(10,10);
+
+            girl = new Girl(10, 10);
             girl.x = FlxG.width - girl.width - 10;
             girl.centerAtY();
             add(girl);
 
             chickens = new FlxGroup();
             
-            int maxChickens = 30;
+            int maxChickens = 5;
 
             for (int i = 0; i < maxChickens; i++)
             {
                 chicken = new Chicken(10, 10);
-                //chicken.floorLevel = i / (maxChickens/5);
+                chicken.floorLevel = i;
                 chicken.visible = false;
                 chicken.dead = true;
                 chickens.add(chicken);
             }
 
             add(chickens);
+
+            score = new FlxText(1, 1, 100);
+            score.setFormat(FlxG.Content.Load<SpriteFont>("font"), 1, Color.White, FlxJustification.Left, Color.Black);
+            add(score);
+
+            exploder = new FlxEmitter();
+            exploder.createSprites("plus1", 100, false, 0.0f, 0.0f);
+            exploder.setXSpeed(0, 0);
+            exploder.setYSpeed(-50, -40);
+            exploder.minRotation = 0;
+            exploder.maxRotation = 0;
+            exploder.gravity = 0;
+            exploder.delay = 0;
+
+            add(exploder);
+
 
         }
 
@@ -82,6 +103,12 @@ namespace FeedingTime
             }
 
             FlxU.overlap(chickens, girl.pellets, eatPellet);
+            score.text = FlxG.score.ToString();
+
+            if (FlxG.debug)
+            {
+                FlxG.score++;
+            }
 
             base.update();
         }
@@ -89,10 +116,15 @@ namespace FeedingTime
         {
             if (((Chicken)(e.Object1)).isPecking == true && ((Chicken)(e.Object1)).floorLevel==((Pellet)(e.Object2)).floorLevel)
             {
+                exploder.at(e.Object2);
+                exploder.start(false, 0.0001f, 1);
+
                 e.Object2.dead = true;
                 e.Object2.visible = false;
-                ((FlxSprite)(e.Object1)).facing = Flx2DFacing.Left;
-
+                e.Object2.x = -100;
+                e.Object2.y = -100;
+                
+                FlxG.score++;
 
             }
             return true;
