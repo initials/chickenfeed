@@ -31,11 +31,15 @@ namespace FeedingTime
             add(girl);
 
             chickens = new FlxGroup();
+            
+            int maxChickens = 30;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < maxChickens; i++)
             {
-                chicken = new Chicken(0, 0);
-                chicken.floorLevel = i / 20;
+                chicken = new Chicken(10, 10);
+                //chicken.floorLevel = i / (maxChickens/5);
+                chicken.visible = false;
+                chicken.dead = true;
                 chickens.add(chicken);
             }
 
@@ -45,6 +49,28 @@ namespace FeedingTime
 
         override public void update()
         {
+            if (FlxG.keys.justPressed(Keys.B))
+            {
+                FlxG.showBounds = !FlxG.showBounds;
+            }
+
+            if (elapsedInState > 1.0f)
+            {
+                FlxSprite c = (FlxSprite)chickens.getFirstDead();
+
+                if (c != null)
+                {
+                    c.facing = Flx2DFacing.Right;
+
+                    c.dead = false;
+                    c.visible = true;
+                    elapsedInState = 0;
+                    c.x = 0;
+                    c.velocity.X = 43;
+                    c.y = 0;
+                    
+                }
+            }
 
             foreach (Chicken chicken in chickens.members)
             {
@@ -55,7 +81,22 @@ namespace FeedingTime
                 p.collide(bg.grounds.members[p.floorLevel]);
             }
 
+            FlxU.overlap(chickens, girl.pellets, eatPellet);
+
             base.update();
+        }
+        protected bool eatPellet(object Sender, FlxSpriteCollisionEvent e)
+        {
+            if (((Chicken)(e.Object1)).isPecking == true && ((Chicken)(e.Object1)).floorLevel==((Pellet)(e.Object2)).floorLevel)
+            {
+                e.Object2.dead = true;
+                e.Object2.visible = false;
+                ((FlxSprite)(e.Object1)).facing = Flx2DFacing.Left;
+
+
+            }
+            return true;
+
         }
 
 

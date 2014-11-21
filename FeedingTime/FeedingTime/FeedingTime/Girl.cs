@@ -32,7 +32,7 @@ namespace FeedingTime
 
             pellets = new FlxGroup();
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < 45; i++)
             {
                 Pellet p = new Pellet(-10, -10);
                 p.dead = true;
@@ -45,10 +45,16 @@ namespace FeedingTime
         {
             for (int i = 0; i < Count; i++)
             {
-                pellets.getFirstDead().x = this.x + 4;
-                pellets.getFirstDead().y = this.y + 40;
-                pellets.getFirstDead().setVelocity(FlxU.random(-80, -25), FlxU.random(-150, -125));
-                pellets.getFirstDead().dead = false;
+                if (pellets.getFirstDead() == null) return;
+                FlxObject p = pellets.getFirstDead();
+                p.reset(0, 0);
+
+                p.x = this.x + 4;
+                p.y = this.y + 40;
+                
+                p.setVelocity(FlxU.random(-80, -25), FlxU.random(-150, -125));
+                p.dead = false;
+                p.visible = true;
             }
         }
 

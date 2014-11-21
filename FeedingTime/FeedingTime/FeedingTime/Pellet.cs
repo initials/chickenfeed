@@ -17,7 +17,7 @@ namespace FeedingTime
         public Pellet(int xPos, int yPos)
             : base(xPos, yPos)
         {
-            loadGraphic(FlxG.Content.Load<Texture2D>("pellet_4x4"), true, false, 4, 4);
+            loadGraphic(FlxG.Content.Load<Texture2D>("pellet_4x4"), true, false, 2, 2);
 
             floorLevel = (int)FlxU.random(0, 5);
 
