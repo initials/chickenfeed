@@ -74,6 +74,10 @@ namespace FeedingTime
             {
                 FlxG.showBounds = !FlxG.showBounds;
             }
+            if (FlxG.keys.justPressed(Keys.Escape))
+            {
+                FlxG.Game.Exit();
+            }
 
             if (elapsedInState > 1.0f)
             {
@@ -105,10 +109,10 @@ namespace FeedingTime
             FlxU.overlap(chickens, girl.pellets, eatPellet);
             score.text = FlxG.score.ToString();
 
-            if (FlxG.debug)
-            {
-                FlxG.score++;
-            }
+            //if (FlxG.debug)
+            //{
+            //    FlxG.score++;
+            //}
 
             base.update();
         }

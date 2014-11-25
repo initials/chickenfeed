@@ -1,7 +1,7 @@
-﻿x=148
-y=91
-fullscreen=0
-zoom=1
+﻿x=1680
+y=1050
+fullscreen=1
+zoom=12
 
 
 
