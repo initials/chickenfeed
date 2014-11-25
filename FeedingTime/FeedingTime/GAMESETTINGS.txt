@@ -1,4 +1,11 @@
-﻿x=1680
+﻿x=592
+y=364
+fullscreen=0
+zoom=4
+
+
+
+x=1680
 y=1050
 fullscreen=1
 zoom=12

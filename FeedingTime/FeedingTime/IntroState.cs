@@ -65,6 +65,8 @@ namespace FeedingTime
 
             add(exploder);
 
+            FlxG.playMp3("music/chickens", 0.2f);
+
 
         }
 
