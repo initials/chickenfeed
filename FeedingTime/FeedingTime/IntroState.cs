@@ -107,7 +107,8 @@ namespace FeedingTime
 
             if (FlxG.debug)
             {
-                FlxG.score++;
+                if (FlxG.keys.PLUS)
+                    FlxG.score++;
             }
 
             base.update();
