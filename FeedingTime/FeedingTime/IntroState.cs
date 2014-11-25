@@ -65,6 +65,8 @@ namespace FeedingTime
 
             add(exploder);
 
+            FlxG.playMp3("music/chickens", 0.2f);
+
 
         }
 
@@ -73,6 +75,10 @@ namespace FeedingTime
             if (FlxG.keys.justPressed(Keys.B))
             {
                 FlxG.showBounds = !FlxG.showBounds;
+            }
+            if (FlxG.keys.justPressed(Keys.Escape))
+            {
+                FlxG.Game.Exit();
             }
 
             if (elapsedInState > 1.0f)
@@ -105,11 +111,18 @@ namespace FeedingTime
             FlxU.overlap(chickens, girl.pellets, eatPellet);
             score.text = FlxG.score.ToString();
 
+<<<<<<< HEAD
             if (FlxG.debug)
             {
                 if (FlxG.keys.PLUS)
                     FlxG.score++;
             }
+=======
+            //if (FlxG.debug)
+            //{
+            //    FlxG.score++;
+            //}
+>>>>>>> origin/master
 
             base.update();
         }
