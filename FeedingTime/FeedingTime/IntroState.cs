@@ -21,6 +21,7 @@ namespace FeedingTime
         private FlxEmitter exploder;
 
         private Aim aim;
+        private Feather feather;
 
         override public void create()
         {
@@ -71,6 +72,10 @@ namespace FeedingTime
 
             aim = new Aim(0, 0);
             add(aim);
+
+            feather = new Feather(0, 0);
+            add(feather);
+            
         }
 
         override public void update()
@@ -134,6 +139,9 @@ namespace FeedingTime
 
         protected bool killChicken(object Sender, FlxSpriteCollisionEvent e)
         {
+            feather.at(e.Object2);
+            feather.velocity.Y = -22;
+
             e.Object2.kill();
             return true;
         }

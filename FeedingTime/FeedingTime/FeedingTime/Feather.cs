@@ -7,26 +7,34 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
+using XNATweener;
 
-namespace FeedingTime.FeedingTime
+namespace FeedingTime
 {
     class Feather : FlxSprite
     {
 
+        Tweener t;
+
         public Feather(int xPos, int yPos)
             : base(xPos, yPos)
         {
-            loadGraphic(FlxG.Content.Load<Texture2D>("Lemonade/"), true, false, 50, 80);
+            loadGraphic("feather", true, false, 10, 10);
 
-            addAnimation("animation", new int[] { 72, 73, 74, 75, 76, 77 }, 12, true);
+            t = new Tweener(-23, 23, 3, XNATweener.Sinusoidal.EaseInOut);
+            t.Loop = true;
+            acceleration.Y = 23;
 
-            play("animation");
+            angularVelocity = 30;
         }
 
         override public void update()
         {
 
+            acceleration.X = t.Position;
 
+
+            t.Update(FlxG.elapsedAsGameTime);
             base.update();
 
         }

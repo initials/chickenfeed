@@ -76,6 +76,7 @@
     <Compile Include="FeedingTime\BG.cs" />
     <Compile Include="FeedingTime\Chicken.cs" />
     <Compile Include="FeedingTime\Duck.cs" />
+    <Compile Include="FeedingTime\Feather.cs" />
     <Compile Include="FeedingTime\Girl.cs" />
     <Compile Include="FeedingTime\Pellet.cs" />
     <Compile Include="FeedingTime\PowerBar.cs" />

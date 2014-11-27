@@ -54,7 +54,7 @@ namespace FeedingTime
                 FlxObject p = pellets.getFirstDead();
                 p.reset(0, 0);
 
-                p.x = this.x + 4;
+                p.x = this.x - 15;
                 p.y = this.y + 40;
                 
                 p.setVelocity(FlxU.random(-80, -25), FlxU.random(-150, -125));
