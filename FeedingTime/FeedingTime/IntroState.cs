@@ -111,18 +111,12 @@ namespace FeedingTime
             FlxU.overlap(chickens, girl.pellets, eatPellet);
             score.text = FlxG.score.ToString();
 
-<<<<<<< HEAD
             if (FlxG.debug)
             {
                 if (FlxG.keys.PLUS)
                     FlxG.score++;
             }
-=======
-            //if (FlxG.debug)
-            //{
-            //    FlxG.score++;
-            //}
->>>>>>> origin/master
+
 
             base.update();
         }
