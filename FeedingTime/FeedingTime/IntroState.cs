@@ -20,6 +20,8 @@ namespace FeedingTime
         private FlxText score;
         private FlxEmitter exploder;
 
+        private Aim aim;
+
         override public void create()
         {
             //FlxG.backColor = FlxColor.ToColor("#E56C60");
@@ -67,7 +69,8 @@ namespace FeedingTime
 
             FlxG.playMp3("music/chickens", 0.2f);
 
-
+            aim = new Aim(0, 0);
+            add(aim);
         }
 
         override public void update()
@@ -109,6 +112,14 @@ namespace FeedingTime
             }
 
             FlxU.overlap(chickens, girl.pellets, eatPellet);
+            aim.frame = 0;
+            FlxU.overlap(aim, girl, setAimIcon);
+
+            if (FlxG.mouse.justPressed())
+            {
+                FlxU.overlap(aim, chickens, killChicken);
+            }
+
             score.text = FlxG.score.ToString();
 
             if (FlxG.debug)
@@ -120,6 +131,20 @@ namespace FeedingTime
 
             base.update();
         }
+
+        protected bool killChicken(object Sender, FlxSpriteCollisionEvent e)
+        {
+            e.Object2.kill();
+            return true;
+        }
+
+        protected bool setAimIcon(object Sender, FlxSpriteCollisionEvent e)
+        {
+            aim.frame = 1;
+            return true;
+        }
+
+
         protected bool eatPellet(object Sender, FlxSpriteCollisionEvent e)
         {
             if (((Chicken)(e.Object1)).isPecking == true && ((Chicken)(e.Object1)).floorLevel==((Pellet)(e.Object2)).floorLevel)

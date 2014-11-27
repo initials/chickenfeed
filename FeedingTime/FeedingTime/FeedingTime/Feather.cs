@@ -8,24 +8,23 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 
-namespace FeedingTime
+namespace FeedingTime.FeedingTime
 {
-    class Aim : FlxSprite
+    class Feather : FlxSprite
     {
 
-        public Aim(int xPos, int yPos)
+        public Feather(int xPos, int yPos)
             : base(xPos, yPos)
         {
-            loadGraphic("gameIcons", true, false, 10, 10);
-            
-            
+            loadGraphic(FlxG.Content.Load<Texture2D>("Lemonade/"), true, false, 50, 80);
+
+            addAnimation("animation", new int[] { 72, 73, 74, 75, 76, 77 }, 12, true);
+
+            play("animation");
         }
 
         override public void update()
         {
-
-            x = FlxG.mouse.x - (this.width/2);
-            y = FlxG.mouse.y - (this.height/2);
 
 
             base.update();

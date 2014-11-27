@@ -39,6 +39,11 @@ namespace FeedingTime
                 pellets.add(p);
             }
 
+            width = 15;
+            //height = 60;
+            setOffset(17, 0);
+
+
         }
 
         public void throwPellets(int Count)
