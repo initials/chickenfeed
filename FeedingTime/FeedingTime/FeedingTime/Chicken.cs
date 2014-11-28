@@ -39,10 +39,11 @@ namespace FeedingTime
 
             addAnimationCallback(pulse);
 
-            width = 8;
-            height = 8;
+            //width = 8;
+            //height = 8;
 
-            setOffset(11, 14);
+            //setOffset(11, 14);
+
             this.facing = Flx2DFacing.Right;
 
         }

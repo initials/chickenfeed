@@ -14,7 +14,10 @@ namespace FeedingTime
     {
         private bool canFeed;
         public FlxGroup pellets;
-
+        /// <summary>
+        /// A place to put the mouse incase you want to limit feeding only to mouse over.
+        /// </summary>
+        public Aim aim;
 
         public Girl(int xPos, int yPos)
             : base(xPos, yPos)
@@ -81,8 +84,15 @@ namespace FeedingTime
         {
             if (FlxG.mouse.justPressed() && canFeed==true)
             {
-                play("feed", true);
-                canFeed = false;
+                if (aim != null)
+                {
+                    if (aim.frame == 1)
+                    {
+                        play("feed", true);
+                        canFeed = false;
+                    }
+                }
+
             }
 
             pellets.update();

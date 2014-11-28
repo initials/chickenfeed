@@ -21,7 +21,12 @@ namespace FeedingTime
         private FlxEmitter exploder;
 
         private Aim aim;
+        
         private Feather feather;
+        private FlxGroup feathers;
+        private int featherCounter;
+
+        private bool canKillChickenThisTick;
 
         override public void create()
         {
@@ -72,14 +77,28 @@ namespace FeedingTime
 
             aim = new Aim(0, 0);
             add(aim);
-
-            feather = new Feather(0, 0);
-            add(feather);
+            girl.aim = aim;
             
+
+            feathers = new FlxGroup();
+            feathers.health = 0;
+
+            for (int i = 0; i < 25; i++)
+            {
+                feather = new Feather(-100, -100);
+                feathers.add(feather);    
+            }
+
+            add(feathers);
+
+            canKillChickenThisTick = true;
+            featherCounter = 0;
         }
 
         override public void update()
         {
+            canKillChickenThisTick = true;
+
             if (FlxG.keys.justPressed(Keys.B))
             {
                 FlxG.showBounds = !FlxG.showBounds;
@@ -89,14 +108,17 @@ namespace FeedingTime
                 FlxG.Game.Exit();
             }
 
-            if (elapsedInState > 1.0f)
+            if (elapsedInState > 1.10f)
             {
                 FlxSprite c = (FlxSprite)chickens.getFirstDead();
 
                 if (c != null)
                 {
+
+                    Console.WriteLine("Releasing a chicken");
                     c.facing = Flx2DFacing.Right;
 
+                    c.exists = true;
                     c.dead = false;
                     c.visible = true;
                     elapsedInState = 0;
@@ -120,10 +142,7 @@ namespace FeedingTime
             aim.frame = 0;
             FlxU.overlap(aim, girl, setAimIcon);
 
-            if (FlxG.mouse.justPressed())
-            {
-                FlxU.overlap(aim, chickens, killChicken);
-            }
+
 
             score.text = FlxG.score.ToString();
 
@@ -133,16 +152,45 @@ namespace FeedingTime
                     FlxG.score++;
             }
 
+            if (FlxG.mouse.justPressed())
+            {
+                FlxU.overlap(aim, chickens, killChicken);
+            }
+
 
             base.update();
+
+
         }
 
         protected bool killChicken(object Sender, FlxSpriteCollisionEvent e)
         {
-            feather.at(e.Object2);
-            feather.velocity.Y = -22;
+            //Console.WriteLine("Kill chicken {0}", e.Object1);
 
-            e.Object2.kill();
+            if (canKillChickenThisTick)
+            {
+
+                for (int i = 0; i < 10; i++)
+                {
+                    Feather c = (Feather)feathers.members[featherCounter];
+
+                    c.at(e.Object2);
+                    c.velocity.Y = FlxU.random(-50, -20);
+
+                    featherCounter++;
+
+                    if (featherCounter >= feathers.members.Count) featherCounter = 1;
+                }
+                //foreach (Feather c in feathers.members)
+                //{
+
+                //}
+
+                e.Object2.kill();
+            }
+
+            canKillChickenThisTick = false;
+
             return true;
         }
 
