@@ -81,7 +81,7 @@ namespace FeedingTime
                 {
                     //floorLevel = (int)FlxU.random(0, 5);
                 }
-                if (FlxU.random() > 0.9891f && onFloor)
+                if (FlxU.random() > 0.94f && onFloor)
                 {
                     if (this.facing == Flx2DFacing.Right)
                     {

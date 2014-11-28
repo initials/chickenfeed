@@ -24,13 +24,19 @@ namespace FeedingTime
         private Duck duck;
 
         private FlxText score;
-        private FlxEmitter exploder;
+
+        private FlxEmitter plusOnes;
+        private FlxEmitter minusOnes;
 
         private Aim aim;
 
         private Feather feather;
         private FlxGroup feathers;
         private int featherCounter;
+
+        private Feather duckFeather;
+        private FlxGroup duckFeathers;
+        private int duckFeatherCounter;
 
         private bool canKillChickenThisTick;
 
@@ -59,20 +65,18 @@ namespace FeedingTime
             {
                 chicken = new Chicken(10, 10);
                 chicken.floorLevel = i;
-                chicken.visible = false;
-                chicken.dead = true;
+                //chicken.visible = false;
+                //chicken.dead = true;
                 chickens.add(chicken);
                 birds.add(chicken);
             }
-
-
-
+            
             ducks = new FlxGroup();
 
             for (int i = 0; i < maxChickens; i++)
             {
                 duck = new Duck(-10, -10);
-                duck.floorLevel = 0;
+                duck.floorLevel = i;
                 duck.visible = false;
                 duck.dead = true;
                 ducks.add(duck);
@@ -89,16 +93,29 @@ namespace FeedingTime
             score.setFormat(FlxG.Content.Load<SpriteFont>("font"), 1, Color.White, FlxJustification.Left, Color.Black);
             add(score);
 
-            exploder = new FlxEmitter();
-            exploder.createSprites("plus1", 100, false, 0.0f, 0.0f);
-            exploder.setXSpeed(0, 0);
-            exploder.setYSpeed(-50, -40);
-            exploder.minRotation = 0;
-            exploder.maxRotation = 0;
-            exploder.gravity = 0;
-            exploder.delay = 0;
+            plusOnes = new FlxEmitter();
+            plusOnes.createSprites("plus1", 100, false, 0.0f, 0.0f);
+            plusOnes.setXSpeed(0, 0);
+            plusOnes.setYSpeed(-50, -40);
+            plusOnes.minRotation = 0;
+            plusOnes.maxRotation = 0;
+            plusOnes.gravity = 0;
+            plusOnes.delay = 0;
 
-            add(exploder);
+            add(plusOnes);
+
+            minusOnes = new FlxEmitter();
+            minusOnes.createSprites("minus1", 100, false, 0.0f, 0.0f);
+            minusOnes.setXSpeed(0, 0);
+            minusOnes.setYSpeed(-50, -40);
+            minusOnes.minRotation = 0;
+            minusOnes.maxRotation = 0;
+            minusOnes.gravity = 0;
+            minusOnes.delay = 0;
+
+            add(minusOnes);
+
+
 
             FlxG.playMp3("music/chickens", 0.2f);
 
@@ -112,11 +129,23 @@ namespace FeedingTime
 
             for (int i = 0; i < 25; i++)
             {
-                feather = new Feather(-100, -100);
+                feather = new Feather(-100, -100, "chicken");
                 feathers.add(feather);
             }
 
             add(feathers);
+
+            duckFeathers = new FlxGroup();
+
+            for (int i = 0; i < 25; i++)
+            {
+                duckFeather = new Feather(-100, -100, "duck");
+                duckFeathers.add(duckFeather);
+            }
+
+            add(duckFeathers);
+
+
 
             canKillChickenThisTick = true;
             featherCounter = 0;
@@ -135,20 +164,20 @@ namespace FeedingTime
                 FlxG.Game.Exit();
             }
 
-            if (elapsedInState > 1.10f)
+            if (elapsedInState > 4.10f)
             {
-                FlxSprite c = (FlxSprite)chickens.getFirstDead();
-                if (c != null)
-                {
-                    c.facing = Flx2DFacing.Right;
-                    c.exists = true;
-                    c.dead = false;
-                    c.visible = true;
-                    elapsedInState = 0;
-                    c.x = 0;
-                    c.velocity.X = 43;
-                    c.y = 0;
-                }
+                //FlxSprite c = (FlxSprite)chickens.getFirstDead();
+                //if (c != null)
+                //{
+                //    c.facing = Flx2DFacing.Right;
+                //    c.exists = true;
+                //    c.dead = false;
+                //    c.visible = true;
+                //    elapsedInState = 0;
+                //    c.x = 0;
+                //    c.velocity.X = 43;
+                //    c.y = 0;
+                //}
 
                 FlxSprite d = (FlxSprite)ducks.getFirstDead();
                 if (d != null)
@@ -160,6 +189,7 @@ namespace FeedingTime
                     d.x = 0;
                     d.velocity.X = 43;
                     d.y = 0;
+                    elapsedInState = 0;
                 }
 
 
@@ -197,6 +227,11 @@ namespace FeedingTime
 
             base.update();
 
+            if (chickens.countLiving() == 0)
+            {
+                FlxG.state = new GameOverState();
+                return;
+            }
 
         }
 
@@ -204,15 +239,33 @@ namespace FeedingTime
         {
             if (canKillChickenThisTick)
             {
-                for (int i = 0; i < 10; i++)
+                if (e.Object2.GetType().ToString() == "FeedingTime.Chicken")
                 {
-                    Feather c = (Feather)feathers.members[featherCounter];
-                    c.at(e.Object2);
-                    c.velocity.Y = FlxU.random(-50, -20);
-                    featherCounter++;
-                    if (featherCounter >= feathers.members.Count) featherCounter = 1;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Feather c = (Feather)feathers.members[featherCounter];
+                        c.at(e.Object2);
+                        c.velocity.Y = FlxU.random(-50, -20);
+                        featherCounter++;
+                        if (featherCounter >= feathers.members.Count) featherCounter = 1;
+                    }
+                    e.Object2.kill();
                 }
-                e.Object2.kill();
+                if (e.Object2.GetType().ToString() == "FeedingTime.Duck")
+                {
+                    for (int i = 0; i < 10; i++)
+                    {
+                        Feather c = (Feather)duckFeathers.members[duckFeatherCounter];
+                        c.at(e.Object2);
+                        c.velocity.Y = FlxU.random(-50, -20);
+                        duckFeatherCounter++;
+                        if (duckFeatherCounter >= duckFeathers.members.Count) duckFeatherCounter = 1;
+                    }
+                    e.Object2.kill();
+                }
+
+
+
             }
 
             canKillChickenThisTick = false;
@@ -229,19 +282,39 @@ namespace FeedingTime
 
         protected bool eatPellet(object Sender, FlxSpriteCollisionEvent e)
         {
-            if (((Bird)(e.Object1)).isPecking == true && ((Bird)(e.Object1)).floorLevel == ((Pellet)(e.Object2)).floorLevel)
+            if (e.Object1.GetType().ToString()=="FeedingTime.Chicken")
             {
-                exploder.at(e.Object2);
-                exploder.start(false, 0.0001f, 1);
+                if (((Bird)(e.Object1)).isPecking == true && ((Bird)(e.Object1)).floorLevel == ((Pellet)(e.Object2)).floorLevel)
+                {
+                    plusOnes.at(e.Object2);
+                    plusOnes.start(false, 0.0001f, 1);
 
-                e.Object2.dead = true;
-                e.Object2.visible = false;
-                e.Object2.x = -100;
-                e.Object2.y = -100;
+                    e.Object2.dead = true;
+                    e.Object2.visible = false;
+                    e.Object2.x = -100;
+                    e.Object2.y = -100;
 
-                FlxG.score++;
+                    FlxG.score++;
 
+                }
             }
+            else if (e.Object1.GetType().ToString() == "FeedingTime.Duck")
+            {
+                if (((Bird)(e.Object1)).floorLevel == ((Pellet)(e.Object2)).floorLevel)
+                {
+                    minusOnes.at(e.Object2);
+                    minusOnes.start(false, 0.0001f, 1);
+
+                    e.Object2.dead = true;
+                    e.Object2.visible = false;
+                    e.Object2.x = -100;
+                    e.Object2.y = -100;
+
+                    FlxG.score--;
+
+                }
+            }
+
             return true;
 
         }

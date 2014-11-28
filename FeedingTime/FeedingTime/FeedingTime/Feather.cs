@@ -17,11 +17,11 @@ namespace FeedingTime
         private Tweener t;
         private bool reverse;
 
-        public Feather(int xPos, int yPos)
+        public Feather(int xPos, int yPos, string BirdType)
             : base(xPos, yPos)
         {
             reverse = false;
-            loadGraphic("feather", true, false, 10, 10);
+            loadGraphic(BirdType + "Feather", true, false, 10, 10);
 
             t = new Tweener(-23, 23, FlxU.random(2,4), XNATweener.Sinusoidal.EaseInOut);
             t.PingPong = true;

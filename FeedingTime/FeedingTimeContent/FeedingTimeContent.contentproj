@@ -147,8 +147,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="feather.png">
-      <Name>feather</Name>
+    <Compile Include="minus1.png">
+      <Name>minus1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="duckFeather.png">
+      <Name>duckFeather</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="chickenFeather.png">
+      <Name>chickenFeather</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
