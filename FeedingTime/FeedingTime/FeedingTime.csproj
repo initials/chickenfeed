@@ -74,13 +74,16 @@
   <ItemGroup>
     <Compile Include="FeedingTime\Aim.cs" />
     <Compile Include="FeedingTime\BG.cs" />
+    <Compile Include="FeedingTime\Bird.cs" />
     <Compile Include="FeedingTime\Chicken.cs" />
     <Compile Include="FeedingTime\Duck.cs" />
     <Compile Include="FeedingTime\Feather.cs" />
     <Compile Include="FeedingTime\Girl.cs" />
+    <Compile Include="FeedingTime\Globals.cs" />
     <Compile Include="FeedingTime\Pellet.cs" />
     <Compile Include="FeedingTime\PowerBar.cs" />
-    <Compile Include="IntroState.cs" />
+    <Compile Include="FeedingTime\IntroState.cs" />
+    <Compile Include="FeedingTime\PlayState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -95,6 +98,10 @@
     </Content>
     <Content Include="ReferenceCode\chickens.js" />
     <Content Include="ReferenceCode\style.css" />
+    <EmbeddedResource Include="Script\script.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\XNAFlixel\XFlixel\XFlixel.csproj">

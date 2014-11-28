@@ -10,10 +10,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace FeedingTime
 {
-    class Duck : FlxSprite
+    class Duck : Bird
     {
-        public int floorLevel;
-        public bool isPecking;
+        //public int floorLevel;
+        //public bool isPecking;
         private int ChickenType;
 
         public Duck(int xPos, int yPos)
@@ -39,10 +39,10 @@ namespace FeedingTime
 
             addAnimationCallback(pulse);
 
-            width = 8;
-            height = 8;
+            //width = 8;
+            //height = 8;
 
-            setOffset(11, 14);
+            //setOffset(11, 14);
             this.facing = Flx2DFacing.Right;
 
         }
@@ -77,17 +77,21 @@ namespace FeedingTime
             if (visible)
             {
                 // 0.99672222f
+                if (FlxU.random() > 0.8f && onFloor)
+                {
+                    //floorLevel = (int)FlxU.random(0, 5);
+                }
                 if (FlxU.random() > 0.9891f && onFloor)
                 {
                     if (this.facing == Flx2DFacing.Right)
                     {
-                        velocity.X = 35;
-                        velocity.Y = -125;
+                        velocity.X = 85;
+                        velocity.Y = -175;
                     }
                     else if (this.facing == Flx2DFacing.Left)
                     {
-                        velocity.X = -35;
-                        velocity.Y = -125;
+                        velocity.X = -85;
+                        velocity.Y = -175;
                     }
 
 

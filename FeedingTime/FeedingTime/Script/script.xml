@@ -1,0 +1,54 @@
+﻿<script>
+  <template>
+    <Czech></Czech>
+    <Danish></Danish>
+    <Dutch></Dutch>
+    <English></English>
+    <French></French>
+    <German></German>
+    <Italian></Italian>
+    <Portuguese></Portuguese>
+    <Russian></Russian>
+    <Spanish></Spanish>
+    <Swedish></Swedish>
+  </template>
+  <title>
+    <Czech>Čas krmení</Czech>
+    <Danish>Opfodring gang</Danish>
+    <Dutch>Voedertijd</Dutch>
+    <English>Feeding Time</English>
+    <French>Moment des repas</French>
+    <German>Fütterung</German>
+    <Italian>Tempo di alimentazione</Italian>
+    <Portuguese>Hora de comer</Portuguese>
+    <Russian>Время кормления</Russian>
+    <Spanish>La Hora De Comer</Spanish>
+    <Swedish>Matdags</Swedish>
+  </title>
+  <intro>
+    <Czech>Sierra! Můžete prosím nakrmit slepice? A nenechte ty kachny jíst jejich jídla.</Czech>
+    <Danish>Sierra! Kan du venligst fodre høns? Og lad ikke disse ænder spiser deres mad.</Danish>
+    <Dutch>Sierra! Kunt u alstublieft de kippen feed? En laat niet de eenden eten hun voedsel.</Dutch>
+    <English>Sierra! Can you please feed the chickens? And don't let those ducks eat their food.</English>
+    <French>Sierra ! Pouvez vous s'il vous plaît nourrir les poulets ? Et ne laissez pas les canards mangent leur nourriture.</French>
+    <German>Sierra! Können Sie bitte die Hühner füttern? Und lassen Sie sich nicht von den Enten, die ihre Nahrung zu sich nehmen.</German>
+    <Italian>Sierra! Può per favore nutrono i polli? E non lasciare che le anatre mangiano il loro cibo.</Italian>
+    <Portuguese>Serra! Pode-se alimentar as galinhas? E não deixe os patos comem a comida deles.</Portuguese>
+    <Russian>Сьерра! Можете вы пожалуйста кормить кур? И не позволяйте эти утки есть их пищу.</Russian>
+    <Spanish>Sierra! ¿Puede usted por favor alimenta a los pollos? Y no dejes que esos patos comer su comida.</Spanish>
+    <Swedish>Sierra! Kan du vänligen mata kycklingar? Och låt inte dessa ankor äter sin mat.</Swedish>
+  </intro>
+  <comehome>
+    <Czech>Sierra, začíná se stmívat. Je na čase jít teď domů.</Czech>
+    <Danish>Sierra, det bliver mørkt. Det er tid til at komme hjem nu.</Danish>
+    <Dutch>Sierra, het wordt steeds donker. Het is tijd om te komen nu thuis.</Dutch>
+    <English>Sierra, it's getting dark. It's time to come home now.</English>
+    <French>Sierra, il devient sombre. Il est temps de venir maison maintenant.</French>
+    <German>Sierra, es wird dunkel. Es ist Zeit, kommen jetzt nach Hause.</German>
+    <Italian>Sierra, è sempre buio. È il momento di venire casa ora.</Italian>
+    <Portuguese>Serra, está ficando escuro. É hora de voltar para casa agora.</Portuguese>
+    <Russian>Сьерра, она становится темно. Это время, чтобы прийти домой.</Russian>
+    <Spanish>Sierra, está oscureciendo. Es hora de volver a casa ahora.</Spanish>
+    <Swedish>Sierra, det börjar bli mörkt. Det är dags att komma hem nu.</Swedish>
+  </comehome>
+</script>

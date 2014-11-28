@@ -10,10 +10,10 @@ using Microsoft.Xna.Framework.Input;
 
 namespace FeedingTime
 {
-    class Chicken : FlxSprite
+    class Chicken : Bird
     {
-        public int floorLevel;
-        public bool isPecking; 
+        //public int floorLevel;
+        //public bool isPecking; 
         private int ChickenType;
 
         public Chicken(int xPos, int yPos)

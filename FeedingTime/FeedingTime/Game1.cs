@@ -38,6 +38,8 @@ namespace Loader_Four
             if (splitter[2].Substring(11).StartsWith("1"))
                 FlxG.fullscreen = true;
             FlxG.zoom = Convert.ToInt32(splitter[3].Substring(5));
+            
+            //FlxG.language = splitter[4];
 
 
             //set up the graphics device and the content manager

@@ -10,18 +10,24 @@ using System.Xml.Linq;
 
 namespace FeedingTime
 {
-    public class IntroState : FlxState
+    public class PlayState : FlxState
     {
         private Girl girl;
         private BG bg;
+
+        private FlxGroup birds;
+
         private FlxGroup chickens;
         private Chicken chicken;
+
+        private FlxGroup ducks;
+        private Duck duck;
 
         private FlxText score;
         private FlxEmitter exploder;
 
         private Aim aim;
-        
+
         private Feather feather;
         private FlxGroup feathers;
         private int featherCounter;
@@ -43,8 +49,10 @@ namespace FeedingTime
             girl.centerAtY();
             add(girl);
 
+            birds = new FlxGroup();
+
             chickens = new FlxGroup();
-            
+
             int maxChickens = 5;
 
             for (int i = 0; i < maxChickens; i++)
@@ -54,9 +62,28 @@ namespace FeedingTime
                 chicken.visible = false;
                 chicken.dead = true;
                 chickens.add(chicken);
+                birds.add(chicken);
             }
 
+
+
+            ducks = new FlxGroup();
+
+            for (int i = 0; i < maxChickens; i++)
+            {
+                duck = new Duck(-10, -10);
+                duck.floorLevel = 0;
+                duck.visible = false;
+                duck.dead = true;
+                ducks.add(duck);
+                birds.add(duck);
+            }
+
+            add(ducks);
             add(chickens);
+
+
+
 
             score = new FlxText(1, 1, 100);
             score.setFormat(FlxG.Content.Load<SpriteFont>("font"), 1, Color.White, FlxJustification.Left, Color.Black);
@@ -78,7 +105,7 @@ namespace FeedingTime
             aim = new Aim(0, 0);
             add(aim);
             girl.aim = aim;
-            
+
 
             feathers = new FlxGroup();
             feathers.health = 0;
@@ -86,7 +113,7 @@ namespace FeedingTime
             for (int i = 0; i < 25; i++)
             {
                 feather = new Feather(-100, -100);
-                feathers.add(feather);    
+                feathers.add(feather);
             }
 
             add(feathers);
@@ -111,13 +138,9 @@ namespace FeedingTime
             if (elapsedInState > 1.10f)
             {
                 FlxSprite c = (FlxSprite)chickens.getFirstDead();
-
                 if (c != null)
                 {
-
-                    Console.WriteLine("Releasing a chicken");
                     c.facing = Flx2DFacing.Right;
-
                     c.exists = true;
                     c.dead = false;
                     c.visible = true;
@@ -125,20 +148,34 @@ namespace FeedingTime
                     c.x = 0;
                     c.velocity.X = 43;
                     c.y = 0;
-                    
                 }
+
+                FlxSprite d = (FlxSprite)ducks.getFirstDead();
+                if (d != null)
+                {
+                    d.facing = Flx2DFacing.Right;
+                    d.exists = true;
+                    d.dead = false;
+                    d.visible = true;
+                    d.x = 0;
+                    d.velocity.X = 43;
+                    d.y = 0;
+                }
+
+
             }
 
-            foreach (Chicken chicken in chickens.members)
+            foreach (Bird bb in birds.members)
             {
-                chicken.collide(bg.grounds.members[chicken.floorLevel]);
+                bb.collide(bg.grounds.members[bb.floorLevel]);
             }
+
             foreach (Pellet p in girl.pellets.members)
             {
                 p.collide(bg.grounds.members[p.floorLevel]);
             }
 
-            FlxU.overlap(chickens, girl.pellets, eatPellet);
+            FlxU.overlap(birds, girl.pellets, eatPellet);
             aim.frame = 0;
             FlxU.overlap(aim, girl, setAimIcon);
 
@@ -154,7 +191,7 @@ namespace FeedingTime
 
             if (FlxG.mouse.justPressed())
             {
-                FlxU.overlap(aim, chickens, killChicken);
+                FlxU.overlap(aim, birds, killChicken);
             }
 
 
@@ -165,27 +202,16 @@ namespace FeedingTime
 
         protected bool killChicken(object Sender, FlxSpriteCollisionEvent e)
         {
-            //Console.WriteLine("Kill chicken {0}", e.Object1);
-
             if (canKillChickenThisTick)
             {
-
                 for (int i = 0; i < 10; i++)
                 {
                     Feather c = (Feather)feathers.members[featherCounter];
-
                     c.at(e.Object2);
                     c.velocity.Y = FlxU.random(-50, -20);
-
                     featherCounter++;
-
                     if (featherCounter >= feathers.members.Count) featherCounter = 1;
                 }
-                //foreach (Feather c in feathers.members)
-                //{
-
-                //}
-
                 e.Object2.kill();
             }
 
@@ -203,7 +229,7 @@ namespace FeedingTime
 
         protected bool eatPellet(object Sender, FlxSpriteCollisionEvent e)
         {
-            if (((Chicken)(e.Object1)).isPecking == true && ((Chicken)(e.Object1)).floorLevel==((Pellet)(e.Object2)).floorLevel)
+            if (((Bird)(e.Object1)).isPecking == true && ((Bird)(e.Object1)).floorLevel == ((Pellet)(e.Object2)).floorLevel)
             {
                 exploder.at(e.Object2);
                 exploder.start(false, 0.0001f, 1);
@@ -212,7 +238,7 @@ namespace FeedingTime
                 e.Object2.visible = false;
                 e.Object2.x = -100;
                 e.Object2.y = -100;
-                
+
                 FlxG.score++;
 
             }

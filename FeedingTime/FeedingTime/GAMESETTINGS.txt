@@ -2,6 +2,7 @@
 y=91
 fullscreen=0
 zoom=1
+language=English
 
 
 
@@ -10,7 +11,7 @@ x=1680
 y=1050
 fullscreen=1
 zoom=12
-
+language=English
 
 
 
@@ -18,12 +19,13 @@ x=592
 y=364
 fullscreen=0
 zoom=4
-
+language=English
 
 
 x=148
 y=91
 fullscreen=0
 zoom=1
+language=English
 
-
+<Czech></Czech><Danish></Danish><Dutch></Dutch><English></English><French></French><German></German><Italian></Italian><Portuguese></Portuguese><Russian></Russian><Spanish></Spanish><Swedish></Swedish>
