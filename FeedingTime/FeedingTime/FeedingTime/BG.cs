@@ -22,19 +22,19 @@ namespace FeedingTime
         {
             bg = new FlxSprite(0, 0);
             bg.loadGraphic("pellet_4x4");
-            bg.scale = 100;
+            bg.scale = 200;
             add(bg);
             bg.color = FlxColor.ToColor("#E56C60");
 
 
             grass = new FlxSprite(0, 0);
-            grass.loadGraphic(FlxG.Content.Load<Texture2D>("bgGrass_148x91"), true, false, 148, 91);
+            grass.loadGraphic(FlxG.Content.Load<Texture2D>("bgGrass_320x180"), true, false, 320, 180);
             add(grass);
 
             grounds = new FlxGroup();
             for (int i = 0; i < 10; i++)
 			{
-			    FlxSprite ground = new FlxSprite(0, (FlxG.height-20) + i*4);
+			    FlxSprite ground = new FlxSprite(0, (FlxG.height-40) + i*4);
                 ground.loadGraphic("ground");
                 ground.color = Color.Red;
                 ground.alpha = 0.0f;

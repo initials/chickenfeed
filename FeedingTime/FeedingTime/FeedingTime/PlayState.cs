@@ -51,43 +51,37 @@ namespace FeedingTime
 
 
             girl = new Girl(10, 10);
-            girl.x = FlxG.width - girl.width - 10;
+            girl.x = FlxG.width - girl.width - 50;
             girl.centerAtY();
+            girl.y += 25;
             add(girl);
 
             birds = new FlxGroup();
 
             chickens = new FlxGroup();
+            ducks = new FlxGroup();
 
             int maxChickens = 5;
 
             for (int i = 0; i < maxChickens; i++)
             {
-                chicken = new Chicken(10, 10);
+                chicken = new Chicken((int)FlxU.randomInt(10,150), 10);
                 chicken.floorLevel = i;
                 //chicken.visible = false;
                 //chicken.dead = true;
                 chickens.add(chicken);
                 birds.add(chicken);
-            }
-            
-            ducks = new FlxGroup();
 
-            for (int i = 0; i < maxChickens; i++)
-            {
                 duck = new Duck(-10, -10);
                 duck.floorLevel = i;
                 duck.visible = false;
                 duck.dead = true;
                 ducks.add(duck);
                 birds.add(duck);
+
             }
-
-            add(ducks);
-            add(chickens);
-
-
-
+            
+            add(birds);
 
             score = new FlxText(1, 1, 100);
             score.setFormat(FlxG.Content.Load<SpriteFont>("font"), 1, Color.White, FlxJustification.Left, Color.Black);
@@ -271,6 +265,11 @@ namespace FeedingTime
             canKillChickenThisTick = false;
 
             return true;
+        }
+
+        public override void render(SpriteBatch spriteBatch)
+        {
+            base.render(spriteBatch);
         }
 
         protected bool setAimIcon(object Sender, FlxSpriteCollisionEvent e)
