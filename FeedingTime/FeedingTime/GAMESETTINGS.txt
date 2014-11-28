@@ -1,4 +1,15 @@
-﻿x=148
+﻿x=320
+y=180
+fullscreen=0
+zoom=1
+language=English
+
+
+
+
+
+
+x=148
 y=91
 fullscreen=0
 zoom=1
