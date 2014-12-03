@@ -38,16 +38,22 @@ namespace Loader_Four
             if (splitter[2].Substring(11).StartsWith("1"))
                 FlxG.fullscreen = true;
             FlxG.zoom = Convert.ToInt32(splitter[3].Substring(5));
-            
-            //FlxG.language = splitter[4];
 
 
             //set up the graphics device and the content manager
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
 
+#if !__ANDROID__
             if (FlxG.fullscreen)
             {
+                int baseRezX = FlxG.resolutionWidth / FlxG.zoom;
+                int bestZoom = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / baseRezX;
+                FlxG.resolutionWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                FlxG.resolutionHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+
+                FlxG.zoom = bestZoom;
+
                 //resX = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
                 //resY = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
                 if (GraphicsAdapter.DefaultAdapter.IsWideScreen)
@@ -60,6 +66,7 @@ namespace Loader_Four
                     }
                 }
             }
+#endif
 
             //we don't need no new-fangled pixel processing
             //in our retro engine!
@@ -76,7 +83,12 @@ namespace Loader_Four
             }
             _graphics.ApplyChanges();
 
-            Console.WriteLine("Running Game at Settings: {0}x{1} Fullscreen?:{2} // Preferrred {3} {4}", FlxG.resolutionWidth, FlxG.resolutionHeight, FlxG.fullscreen, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width, GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height);
+            Console.WriteLine("\n\nRunning Game at Settings: {0}x{1} Fullscreen?:{2} \n Preferrred {3} {4}\nZoom:{5}\n\n",
+                FlxG.resolutionWidth,
+                FlxG.resolutionHeight, FlxG.fullscreen,
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width,
+                GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height,
+                FlxG.zoom);
 
             FlxG.Game = this;
 #if !WINDOWS_PHONE
