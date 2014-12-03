@@ -204,6 +204,7 @@ namespace FeedingTime
             FlxU.overlap(aim, girl, setAimIcon);
 
 
+            if (FlxG.score < 0) FlxG.score = 0;
 
             score.text = FlxG.score.ToString();
 

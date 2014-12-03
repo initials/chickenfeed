@@ -1,11 +1,23 @@
-﻿x=320
-y=180
-fullscreen=1
-zoom=1
+﻿x=640
+y=360
+fullscreen=0
+zoom=2
 language=English
 
 
 
+x=320
+y=180
+fullscreen=0
+zoom=1
+language=English
+
+
+x=320
+y=180
+fullscreen=0
+zoom=1
+language=English
 
 
 
