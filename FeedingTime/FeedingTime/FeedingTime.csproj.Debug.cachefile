@@ -13,9 +13,9 @@ Content\powerBarBg.xnb
 Content\powerBarBig.xnb
 Content\powerBarRed.xnb
 Content\squareNote.xnb
-Content\plus1.xnb
 Content\font.xnb
 Content\font2.xnb
+Content\plus1.xnb
 Content\music\chickens.xnb
 Content\ducks_22x22.xnb
 Content\gameIcons.xnb
@@ -95,4 +95,6 @@ Content\flixel\fx\BloomCombine.xnb
 Content\flixel\fx\BloomExtract.xnb
 Content\flixel\fx\GaussianBlur.xnb
 Content\flixel\buttons\gameIcons.xnb
+Content\flixel\diagnostic\checkerboard.xnb
+Content\flixel\pixel.xnb
 GAMESETTINGS.txt

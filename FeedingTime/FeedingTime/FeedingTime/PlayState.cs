@@ -153,6 +153,25 @@ namespace FeedingTime
             {
                 FlxG.showBounds = !FlxG.showBounds;
             }
+            if (FlxG.keys.ONE)
+            {
+                duck = new Duck(-20,0);
+                duck.floorLevel = FlxU.randomInt(0,5);
+                duck.velocity.X = 30;
+                ducks.add(duck);
+                birds.add(duck);
+            }
+            if (FlxG.keys.TWO)
+            {
+                chicken = new Chicken(-20,0);
+                chicken.floorLevel = FlxU.randomInt(0, 5);
+                chicken.velocity.X = 50;
+                chickens.add(chicken);
+                birds.add(chicken);
+
+            }
+
+
             if (FlxG.keys.justPressed(Keys.Escape))
             {
                 FlxG.Game.Exit();
